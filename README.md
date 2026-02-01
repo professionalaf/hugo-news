@@ -20,15 +20,25 @@ A modern, responsive Hugo theme designed for news and media websites. Built with
 
 ## Installation
 
+### For Hugo Site Users
+
 1. In your Hugo site directory, run:
 ```bash
 git submodule add https://github.com/professionalaf/hugo-news themes/hugo-news
 ```
 
-2. Update your `hugo.toml` configuration:
+2. Install theme dependencies (required for CSS/JS processing):
+```bash
+cd themes/hugo-news
+npm install
+```
+
+3. Update your `hugo.toml` configuration:
 ```toml
 theme = "hugo-news"
 ```
+
+**Note**: This theme requires Hugo Extended version 0.128.0 or higher for PostCSS support.
 
 ## Configuration
 
@@ -173,11 +183,76 @@ Dynamic comments are stored in the user's browser localStorage. These comments:
 
 Dynamic comments are automatically handled by the theme's JavaScript and don't require any setup.
 
-# Development
+## Development
 
-Requirements:
-- Hugo Extended Version (>= 0.116.0)
-- Node.js (for Tailwind CSS development)
+### Requirements
+
+- Hugo Extended Version (>= 0.128.0) - Required for PostCSS integration
+- Node.js (>= 18.0.0) - Required for Tailwind CSS and PostCSS processing
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/professionalaf/hugo-news.git
+cd hugo-news
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development Workflow
+
+1. **Start development server** (runs from exampleSite):
+```bash
+npm run dev
+```
+
+This will start Hugo's development server with hot reload. The server will automatically process CSS through PostCSS and Tailwind CSS.
+
+2. **Build for production**:
+```bash
+npm run build
+```
+
+3. **Test the theme** (builds exampleSite):
+```bash
+npm test
+```
+
+### Build Process
+
+The theme uses Hugo's built-in asset pipeline:
+
+- **CSS**: Processed through PostCSS with Tailwind CSS and Autoprefixer
+  - Source: `assets/css/main.css`
+  - Automatically minified and fingerprinted in production
+  - Tailwind CSS classes are purged based on usage in templates
+
+- **JavaScript**: Alpine.js is bundled via Hugo's asset pipeline
+  - Source: `assets/js/alpine.js`
+  - Automatically minified and fingerprinted in production
+
+- **Configuration**:
+  - `tailwind.config.js` - Tailwind CSS configuration
+  - `postcss.config.js` - PostCSS plugins (Tailwind, Autoprefixer)
+  - `hugo.toml` - Hugo build configuration with cache busters
+
+### Testing
+
+The theme includes automated testing via GitHub Actions:
+
+- Builds with multiple Hugo versions (0.128.0 minimum, latest)
+- Validates HTML output
+- Checks CSS and JS asset generation
+- Runs on every push and pull request
+
+To test locally:
+```bash
+npm test
+```
 
 ## Contributing
 

@@ -4,6 +4,7 @@
 /node_modules/
 /exampleSite/public/
 /exampleSite/resources/
+/exampleSite/themes/
 
 # OS-specific
 .DS_Store
