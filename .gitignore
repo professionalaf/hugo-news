@@ -41,3 +41,4 @@ hugo
 # Ignore any additional personal or system-specific files
 /.env
 /secrets/
+docs/

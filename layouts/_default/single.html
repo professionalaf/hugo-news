@@ -35,14 +35,6 @@
             {{ if $localComments }}
                 {{ $commentsData = transform.Unmarshal $localComments }}
             {{ end }}
-
-            <!-- Debug info -->
-            <div class="debug-info" style="display: none;">
-                Directory: {{ .File.Dir }}
-                Resources: {{ .Resources }}
-                Local Comments Found: {{ if $localComments }}yes{{ else }}no{{ end }}
-                Comments Data: {{ $commentsData }}
-            </div>
         {{ end }}
 
         <div x-data="{
