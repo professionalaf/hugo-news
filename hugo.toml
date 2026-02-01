@@ -27,10 +27,19 @@ googleAnalytics = "" # e.g. "G-MEASUREMENT_ID"
   tag = "tags"
   author = "authors"
 
+[build]
+  writeStats = true
+  noJSConfigInAssets = false
+
+[build.cachebusters]
+  [build.cachebusters."(postcss|tailwind)\\.config\\.js"]
+    source = "(postcss|tailwind)\\.config\\.js"
+    target = "css"
+
 [module]
   [module.hugoVersion]
-    extended = false
-    min = "0.116.0"
+    extended = true
+    min = "0.128.0"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]

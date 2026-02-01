@@ -49,17 +49,14 @@
             initializeComments() {
                 // Get static comments from local file
                 const staticComments = {{ with $commentsData }}{{ .comments | jsonify }}{{ else }}[]{{ end }};
-                console.log('Static comments:', staticComments);
 
                 // Get dynamic comments from localStorage
                 const storedComments = JSON.parse(localStorage.getItem('comments-{{ .File.UniqueID }}') || '[]');
-                console.log('Stored comments:', storedComments);
 
                 // Combine and sort all comments by date
                 this.comments = [...staticComments, ...storedComments].sort((a, b) =>
                     new Date(a.date) - new Date(b.date)
                 );
-                console.log('Combined comments:', this.comments);
             }
         }"
         x-init="initializeComments()"

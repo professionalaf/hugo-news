@@ -1,0 +1,29 @@
+{
+  "name": "hugo-news",
+  "version": "1.0.0",
+  "description": "A modern, responsive Hugo theme for news and media websites. Built with Tailwind CSS and Alpine.js",
+  "author": "Taylor Ondrey",
+  "license": "MIT",
+  "homepage": "https://github.com/professionalaf/hugo-news",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/professionalaf/hugo-news.git"
+  },
+  "scripts": {
+    "predev": "mkdir -p exampleSite/themes && ln -sfn $(pwd) exampleSite/themes/hugo-news || true",
+    "dev": "hugo server --source exampleSite",
+    "build": "hugo --gc --minify",
+    "pretest": "mkdir -p exampleSite/themes && ln -sfn $(pwd) exampleSite/themes/hugo-news || true",
+    "test": "hugo --gc --minify --source exampleSite --baseURL 'https://example.org/'",
+    "test:exampleSite": "hugo --gc --minify --source exampleSite --baseURL 'https://example.org/'"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^3.4.1"
+  }
+}

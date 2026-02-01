@@ -1,0 +1,72 @@
+name: Test Hugo Theme
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        hugo-version:
+          - "0.128.0"  # Minimum version for PostCSS support
+          - "0.152.2"  # Latest version
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ matrix.hugo-version }}
+          extended: true
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Setup exampleSite theme symlink
+        run: |
+          mkdir -p exampleSite/themes
+          ln -sfn $(pwd) exampleSite/themes/hugo-news
+      
+      - name: Build exampleSite
+        working-directory: ./exampleSite
+        run: |
+          hugo --gc --minify --baseURL "https://example.org/"
+      
+      - name: Check HTML output
+        working-directory: ./exampleSite
+        run: |
+          if [ ! -d "public" ]; then
+            echo "Error: public directory not found"
+            exit 1
+          fi
+          if [ ! "$(ls -A public)" ]; then
+            echo "Error: public directory is empty"
+            exit 1
+          fi
+          echo "Build successful - HTML files generated"
+      
+      - name: Validate CSS and JS assets
+        working-directory: ./exampleSite
+        run: |
+          if [ ! -d "public/css" ] || [ ! -f "public/css/main.min."*.css ]; then
+            echo "Error: CSS file not found or not processed correctly"
+            exit 1
+          fi
+          if [ ! -d "public/js" ] || [ ! -f "public/js/alpine.min."*.js ]; then
+            echo "Error: JS file not found or not processed correctly"
+            exit 1
+          fi
+          echo "Assets validated successfully"

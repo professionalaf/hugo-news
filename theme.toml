@@ -5,7 +5,7 @@ description = "A modern, responsive Hugo theme for news and media websites. Buil
 homepage = "https://github.com/professionalaf/hugo-news"
 tags = ["blog", "news", "responsive", "modern", "search", "tailwind", "alpine", "authors", "featured-images"]
 features = ["search", "authors", "categories", "tags", "responsive", "tailwind", "alpine"]
-min_version = "0.116.0"
+min_version = "0.128.0"
 
 [author]
   name = "Taylor Ondrey"
@@ -13,5 +13,5 @@ min_version = "0.116.0"
 
 [module]
   [module.hugoVersion]
-    extended = false
-    min = "0.116.0"
+    extended = true
+    min = "0.128.0"
