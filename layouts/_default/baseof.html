@@ -33,7 +33,16 @@
     {{ with .Params.tags }}{{ range . }}<meta property="article:tag" content="{{ . }}">{{ end }}{{ end }}
     {{ end }}
     
-    <link rel="stylesheet" href="/css/main.css">
+    {{- $css := resources.Get "css/main.css" }}
+    {{- if $css }}
+      {{- if eq hugo.Environment "development" }}
+        <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+      {{- else }}
+        {{- with $css | minify | fingerprint }}
+          <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{- end }}
+      {{- end }}
+    {{- end }}
     <!-- Add Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Add Alpine.js for interactivity -->
