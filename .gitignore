@@ -19,7 +19,7 @@ Thumbs.db
 *.log
 
 # Dependency files (if using npm/yarn)
-package-lock.json
+# Note: package-lock.json should be committed for reproducible builds
 yarn.lock
 /.hugo_build.lock
 
